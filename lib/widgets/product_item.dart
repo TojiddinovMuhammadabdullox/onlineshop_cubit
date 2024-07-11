@@ -10,38 +10,60 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(product.imageUrl),
-      title: Text(product.title),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: Icon(
-              product.isFavourite ? Icons.favorite : Icons.favorite_border,
-              color: product.isFavourite ? Colors.red : null,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Container(
+        width: double.infinity,
+        height: 75,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.shade300,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            leading: Image.network(product.imageUrl),
+            title: Text(product.title),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    product.isFavourite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: product.isFavourite ? Colors.red : null,
+                  ),
+                  onPressed: () {
+                    context.read<ProductCubit>().toggleFavourite(product.id);
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {
+                    editProduct(context, product);
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    context.read<ProductCubit>().removeProduct(product.id);
+                  },
+                ),
+              ],
             ),
-            onPressed: () {
-              context.read<ProductCubit>().toggleFavourite(product.id);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
+            onLongPress: () {
               editProduct(context, product);
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              context.read<ProductCubit>().removeProduct(product.id);
-            },
-          ),
-        ],
+        ),
       ),
-      onLongPress: () {
-        // Long press logic if needed
-      },
     );
   }
 
