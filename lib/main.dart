@@ -1,3 +1,5 @@
+import 'package:bloc_store/blocs/cart_cubit.dart';
+import 'package:bloc_store/blocs/order_cubit.dart';
 import 'package:bloc_store/blocs/product_cubit.dart';
 import 'package:bloc_store/blocs/theme_cubit.dart';
 import 'package:bloc_store/pages/home_page.dart';
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ProductCubit()),
         BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => CartCubit()),
+        BlocProvider(create: (_) => OrderCubit()),
       ],
       child: BlocBuilder<ThemeCubit, bool>(
         builder: (context, isDarkMode) {

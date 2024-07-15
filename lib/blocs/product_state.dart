@@ -9,5 +9,3 @@ class ProductState extends Equatable {
   @override
   List<Object> get props => [products];
 }
-
-
